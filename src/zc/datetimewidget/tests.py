@@ -19,9 +19,11 @@ __docformat__ = "reStructuredText"
 import os
 import doctest
 import unittest
+import zc.datetimewidget
 from doctest import DocFileSuite
 
 from zope.app.testing import functional, setup
+from zope.app.wsgi import testlayer
 
 
 def setUp(test):
@@ -30,12 +32,17 @@ def setUp(test):
 def tearDown(test):
     setup.placefulTearDown()
 
-DTWidgetLayer = functional.ZCMLLayer(
-    os.path.join(os.path.split(__file__)[0], 'ftesting.zcml'),
-    __name__, 'DTWidgetLayer', allow_teardown=True)
+DTWidgetLayer = testlayer.BrowserLayer(
+    zc.datetimewidget,
+    os.path.join(os.path.dirname(__file__), 'ftesting.zcml'),
+    name='DTWidgetLayer',
+    allowTearDown=True)
 
 def test_suite():
-    DemoSuite = functional.FunctionalDocFileSuite('demo/README.txt')
+    # XXX Use DocFileSuite instead?
+    DemoSuite = functional.FunctionalDocFileSuite(
+        'demo/README.txt',
+        globs={'layer': DTWidgetLayer})
     DemoSuite.layer = DTWidgetLayer
     return unittest.TestSuite(
         (

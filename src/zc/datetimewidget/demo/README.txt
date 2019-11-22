@@ -5,8 +5,8 @@ Datetime Widget Demo
 This demo packe provides a simple content class which uses the
 zc.datetimewidget
 
-    >>> from zope.testbrowser.testing import Browser
-    >>> browser = Browser()
+    >>> from zope.testbrowser.wsgi import Browser
+    >>> browser = Browser(wsgi_app=layer.make_wsgi_app())
     >>> browser.handleErrors = False
     >>> browser.addHeader('Authorization', 'Basic mgr:mgrpw')
     >>> browser.open('http://localhost/@@contents.html')

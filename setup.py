@@ -55,7 +55,7 @@ setup(name='zc.datetimewidget',
       namespace_packages=['zc'],
       extras_require=dict(
           test=['zope.app.zcmlfiles',
-                'zope.app.testing',
+                'zope.app.wsgi',
                 'zope.container',
                 'zope.login',
                 'zope.password',
