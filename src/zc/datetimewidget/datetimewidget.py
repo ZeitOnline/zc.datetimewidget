@@ -331,7 +331,7 @@ class DatetimeBase(object):
         else:
             try:
                 dt = parseDatetimetz(input)
-            except (DateTimeError, ValueError, IndexError), v:
+            except (DateTimeError, ValueError, IndexError) as v:
                 return super(DatetimeBase, self)._toFieldValue(input)
             else:
                 if self._showsTime:
