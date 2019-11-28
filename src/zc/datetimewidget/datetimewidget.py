@@ -19,7 +19,7 @@ import datetime
 
 from zope.schema import TextLine, Bool, Int, Date, Choice
 from zope.schema import getFieldsInOrder
-from zope.interface import Interface, implements
+from zope.interface import Interface
 from zope.interface.common.idatetime import ITZInfo
 from zope.datetime import parseDatetimetz, DateTimeError
 from zope.formlib import textwidgets
@@ -29,6 +29,7 @@ import zc.i18n.date
 import zc.resourcelibrary
 import glob
 import os
+import six
 
 
 # initialize the language files
@@ -176,8 +177,8 @@ class ICalendarWidgetConfiguration(Interface):
 
 
 
+@zope.interface.implementer(ICalendarWidgetConfiguration)
 class CalendarWidgetConfiguration(object):
-    implements(ICalendarWidgetConfiguration)
 
     _multiple_dates = None
 
@@ -216,7 +217,7 @@ class CalendarWidgetConfiguration(object):
                     value_repr = 'null'
                 elif isinstance(field, JavascriptObject):
                     value_repr = str(value)
-                elif isinstance(value, basestring):
+                elif isinstance(value, six.string_types):
                     value_repr = repr(str(value))
                 elif isinstance(value, bool):
                     value_repr = value and 'true' or 'false'

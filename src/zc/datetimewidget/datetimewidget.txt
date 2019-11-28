@@ -9,6 +9,7 @@ Configuration
     >>> from zope.interface.verify import verifyObject
     >>> from zc.datetimewidget.datetimewidget import (
     ...     CalendarWidgetConfiguration, ICalendarWidgetConfiguration)
+    >>> import six
 
 Let's create a standard configuration object:
 
@@ -18,11 +19,11 @@ Let's create a standard configuration object:
 
 Fields have their default values:
 
-    >>> conf.daFormat
-    u'%Y/%m/%d'
+    >>> six.print_(conf.daFormat)
+    %Y/%m/%d
     >>> conf.singleClick
     True
-    >>> print conf.flat
+    >>> six.print_(conf.flat)
     None
 
 We can customize some attributes during instantiation:
@@ -38,7 +39,7 @@ Dumping JavaScript
 
 Configuration can be dumped as JavaScript.  First an empty configuration:
 
-    >>> print CalendarWidgetConfiguration('field.x').dumpJS()
+    >>> six.print_(CalendarWidgetConfiguration('field.x').dumpJS())
     Calendar.setup({
     <BLANKLINE>
     });
@@ -47,7 +48,7 @@ Now let's add a few customizations:
 
     >>> conf = CalendarWidgetConfiguration('x', daFormat=u'%m-%d',
     ...     inputField='inp', eventName=None, date=conf.date)
-    >>> print conf.dumpJS()
+    >>> six.print_(conf.dumpJS())
     Calendar.setup({
       inputField: 'inp',
       eventName: null,
@@ -81,7 +82,7 @@ Date set widget
     >>> field = field.bind(context)
     >>> widget = DateSetWidget(field, object(), request)
 
-    >>> print widget() # doctest: +REPORT_NDIFF
+    >>> six.print_(widget()) # doctest: +REPORT_NDIFF
     <BLANKLINE>
     <input class="textType" id="field.somedates" name="field.somedates" size="30" type="text" value=""  />
     <input type="button" value="..." id="field.somedates_trigger">
@@ -99,7 +100,7 @@ Date set widget
     </script>
     <BLANKLINE>
 
-    >>> print widget.hidden() # doctest: +REPORT_NDIFF
+    >>> six.print_(widget.hidden()) # doctest: +REPORT_NDIFF
     <input class="hiddenType" id="field.somedates" name="field.somedates" type="hidden" value=""  />
     <input type="button" value="..." id="field.somedates_trigger">
     <script type="text/javascript">
