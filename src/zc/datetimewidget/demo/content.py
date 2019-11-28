@@ -1,15 +1,14 @@
 from persistent import Persistent
-from zope.interface import implements
 from zope.container.contained import Contained
 from zope.schema.fieldproperty import FieldProperty
-from interfaces import IDemoContent
+from zc.datetimewidget.demo.interfaces import IDemoContent
 from datetime import datetime
+import zope.interface
 import pytz
 
 
+@zope.interface.implementer(IDemoContent)
 class DemoContent(Persistent, Contained):
-
-    implements(IDemoContent)
 
     startDate = FieldProperty(IDemoContent['startDate'])
     endDate = FieldProperty(IDemoContent['endDate'])

@@ -19,35 +19,35 @@ __docformat__ = "reStructuredText"
 import os
 import doctest
 import unittest
+import zc.datetimewidget
 from doctest import DocFileSuite
 
-from zope.app.testing import functional, setup
+from zope.app.wsgi import testlayer
 
 
-def setUp(test):
-    setup.placefulSetUp()
+DTWidgetLayer = testlayer.BrowserLayer(
+    zc.datetimewidget,
+    os.path.join(os.path.dirname(__file__), 'ftesting.zcml'),
+    name='DTWidgetLayer',
+    allowTearDown=True)
 
-def tearDown(test):
-    setup.placefulTearDown()
-
-DTWidgetLayer = functional.ZCMLLayer(
-    os.path.join(os.path.split(__file__)[0], 'ftesting.zcml'),
-    __name__, 'DTWidgetLayer', allow_teardown=True)
 
 def test_suite():
-    DemoSuite = functional.FunctionalDocFileSuite('demo/README.txt')
+    # XXX Use DocFileSuite instead?
+    DemoSuite = DocFileSuite(
+        'demo/README.txt',
+        globs={'layer': DTWidgetLayer})
     DemoSuite.layer = DTWidgetLayer
-    return unittest.TestSuite(
-        (
-        DocFileSuite('widgets.txt',
-                     optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
-                     ),
-        DocFileSuite('datetimewidget.txt',
-                     optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
-                     ),
-        DemoSuite,
+    return unittest.TestSuite((
+        DocFileSuite(
+            'widgets.txt',
+            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
+        DocFileSuite(
+            'datetimewidget.txt',
+            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
+        DemoSuite
         ))
+
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')
-

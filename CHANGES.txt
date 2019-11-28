@@ -5,7 +5,7 @@ CHANGES
 0.9 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Grant compatibility for python3
 
 
 0.8.0 (2016-01-12)
