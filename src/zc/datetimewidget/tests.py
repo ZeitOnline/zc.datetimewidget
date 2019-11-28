@@ -22,15 +22,8 @@ import unittest
 import zc.datetimewidget
 from doctest import DocFileSuite
 
-from zope.app.testing import functional, setup
 from zope.app.wsgi import testlayer
 
-
-def setUp(test):
-    setup.placefulSetUp()
-
-def tearDown(test):
-    setup.placefulTearDown()
 
 DTWidgetLayer = testlayer.BrowserLayer(
     zc.datetimewidget,
@@ -38,23 +31,23 @@ DTWidgetLayer = testlayer.BrowserLayer(
     name='DTWidgetLayer',
     allowTearDown=True)
 
+
 def test_suite():
     # XXX Use DocFileSuite instead?
-    DemoSuite = functional.FunctionalDocFileSuite(
+    DemoSuite = DocFileSuite(
         'demo/README.txt',
         globs={'layer': DTWidgetLayer})
     DemoSuite.layer = DTWidgetLayer
-    return unittest.TestSuite(
-        (
-        DocFileSuite('widgets.txt',
-                     optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
-                     ),
-        DocFileSuite('datetimewidget.txt',
-                     optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
-                     ),
-        DemoSuite,
+    return unittest.TestSuite((
+        DocFileSuite(
+            'widgets.txt',
+            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
+        DocFileSuite(
+            'datetimewidget.txt',
+            optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
+        DemoSuite
         ))
+
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')
-
