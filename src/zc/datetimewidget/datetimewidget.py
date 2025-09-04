@@ -26,7 +26,6 @@ from zope.formlib import textwidgets
 from zope.formlib.widget import renderElement
 import pytz
 import zope.datetime
-import zc.resourcelibrary
 import glob
 import os
 
@@ -265,7 +264,11 @@ class DatetimeBase(object):
         `widget_html` is the HTML for the simple date field.  This method
         wraps that field in some extra code for the advanced JavaScript widget.
         """
-        zc.resourcelibrary.need('zc.datetimewidget')
+        try:
+            import zc.resourcelibrary
+            zc.resourcelibrary.need('zc.datetimewidget')
+        except ImportError:
+            pass
         lang = self.request.locale.id.language
         lang = lang in LANGS and lang or 'en'
         if lang != 'en':
