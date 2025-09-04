@@ -29,7 +29,6 @@ import zope.datetime
 import zc.resourcelibrary
 import glob
 import os
-import six
 
 
 # initialize the language files
@@ -220,8 +219,8 @@ class CalendarWidgetConfiguration(object):
                     value_repr = 'null'
                 elif isinstance(field, JavascriptObject):
                     value_repr = str(value)
-                elif isinstance(value, six.string_types):
-                    value_repr = repr(str(value))
+                elif isinstance(value, str):
+                    value_repr = repr(value)
                 elif isinstance(value, bool):
                     value_repr = value and 'true' or 'false'
                 elif isinstance(value, datetime.date):
