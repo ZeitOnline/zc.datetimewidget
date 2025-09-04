@@ -22,7 +22,7 @@ def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 setup(name='zc.datetimewidget',
-      version='0.8.0+py3.2',
+      version='0.8.0+py3.4',
       author='Zope Corporation and Contributors',
       author_email='zope-dev@zope.org',
       description='Javascript-based widgets for date and datetime fields.',
@@ -65,7 +65,6 @@ setup(name='zc.datetimewidget',
                 ]),
       install_requires=['pytz',
                         'setuptools',
-                        'zc.i18n<4.5.0',
                         'zc.resourcelibrary',
                         'zope.formlib >= 4.0',
                         'zope.component',

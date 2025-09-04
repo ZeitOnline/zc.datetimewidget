@@ -24,8 +24,8 @@ from zope.interface.common.idatetime import ITZInfo
 from zope.datetime import parseDatetimetz, DateTimeError
 from zope.formlib import textwidgets
 from zope.formlib.widget import renderElement
+import pytz
 import zope.datetime
-import zc.i18n.date
 import zc.resourcelibrary
 import glob
 import os
@@ -48,7 +48,10 @@ def normalizeDateTime(dt, request):
             # timezone.  Zope 3.2+ datetime widgets should use the
             # request's timezone, or pytz.utc for UTC rather than the
             # datetimeutils version.
-        dt = zc.i18n.date.normalize(request, dt)
+        if dt.tzinfo is None:
+            tzinfo = ITZInfo(request)
+            dt = tzinfo.localize(dt, is_dst=None)
+        dt = dt.astimezone(pytz.utc)
     return dt
 
 def localizeDateTime(dt, request):
