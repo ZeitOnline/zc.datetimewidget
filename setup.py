@@ -16,7 +16,7 @@
 $Id$
 """
 import os
-from setuptools import setup, find_packages
+from setuptools import setup
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
@@ -50,9 +50,6 @@ setup(name='zc.datetimewidget',
           'Framework :: Zope :: 3'],
       url='http://pypi.python.org/pypi/zc.datetimewidget',
       license='ZPL 2.1',
-      packages=find_packages('src'),
-      package_dir={'': 'src'},
-      namespace_packages=['zc'],
       extras_require=dict(
           test=['zope.app.zcmlfiles',
                 'zope.app.wsgi',
@@ -64,7 +61,6 @@ setup(name='zc.datetimewidget',
                 'zope.testbrowser',
                 ]),
       install_requires=['pytz',
-                        'setuptools',
                         'zc.resourcelibrary',
                         'zope.formlib >= 4.0',
                         'zope.component',
