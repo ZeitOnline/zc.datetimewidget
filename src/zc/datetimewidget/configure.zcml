@@ -1,4 +1,6 @@
-<configure xmlns='http://namespaces.zope.org/zope'>
+<configure
+  xmlns='http://namespaces.zope.org/zope'
+  xmlns:browser='http://namespaces.zope.org/browser'>
 
   <view
       type="zope.publisher.interfaces.browser.IBrowserRequest"
@@ -7,6 +9,11 @@
       provides="zope.formlib.interfaces.IInputWidget"
       factory=".datetimewidget.DateSetWidget"
       permission="zope.Public"
+      />
+
+  <browser:resourceDirectory
+      name="zc.datetimewidget"
+      directory="resources"
       />
 
 </configure>
